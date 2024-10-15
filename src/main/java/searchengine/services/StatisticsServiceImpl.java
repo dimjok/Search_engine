@@ -28,7 +28,6 @@ public class StatisticsServiceImpl implements StatisticsService {
     private final PageRepository pageRepository;
 
     private final LemmaRepository lemmaRepository;
-    private final Random random = new Random();
 
     private final SitesList sites;
 
@@ -38,7 +37,6 @@ public class StatisticsServiceImpl implements StatisticsService {
         TotalStatisticsDto total = new TotalStatisticsDto();
         total.setSites(sites.getSites().size());
         total.setIndexing(true);
-
         List<DetailedStatisticsItemDto> detailed = new ArrayList<>();
         List<Site> sitesList = sites.getSites();
         for(int i = 0; i < sitesList.size(); i++) {
@@ -60,16 +58,24 @@ public class StatisticsServiceImpl implements StatisticsService {
                 statusTime = siteModel.getStatusTime();
                 lemmas = lemmaRepository.countBySiteId(siteModel.getId());
             }
-            item.setPages(pages);
-            item.setLemmas(lemmas);
-            item.setStatus(status);
-            item.setError(error);
-            item.setStatusTime(statusTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000);
-            total.setPages(total.getPages() + pages);
-            total.setLemmas(total.getLemmas() + lemmas);
+            setTotalAndDetailed(total, item, pages, lemmas, status, statusTime, error);
             detailed.add(item);
         }
+        return buildResponse(detailed, total);
+    }
 
+    private void setTotalAndDetailed(TotalStatisticsDto total, DetailedStatisticsItemDto item, int pages,
+                                     int lemmas, String status, LocalDateTime statusTime, String error) {
+        item.setPages(pages);
+        item.setLemmas(lemmas);
+        item.setStatus(status);
+        item.setError(error);
+        item.setStatusTime(statusTime.atZone(ZoneId.systemDefault()).toEpochSecond() * 1000);
+        total.setPages(total.getPages() + pages);
+        total.setLemmas(total.getLemmas() + lemmas);
+    }
+
+    private StatisticsResponseDto buildResponse(List<DetailedStatisticsItemDto> detailed, TotalStatisticsDto total) {
         StatisticsResponseDto response = new StatisticsResponseDto();
         StatisticsDataDto data = new StatisticsDataDto();
         data.setTotal(total);

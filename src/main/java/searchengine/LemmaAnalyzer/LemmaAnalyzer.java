@@ -1,14 +1,8 @@
 package searchengine.LemmaAnalyzer;
 
-import org.apache.lucene.morphology.LuceneMorphology;
 import org.apache.lucene.morphology.russian.RussianLuceneMorphology;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import searchengine.services.LemmaService;
+
 
 import java.io.IOException;
 import java.util.*;
@@ -20,15 +14,6 @@ public class LemmaAnalyzer {
     private static final String WORD_TYPE_REGEX = "\\W\\w&&[^а-яА-Я\\s]";
     private static final String[] particlesNames = new String[]{"МЕЖД", "ПРЕДЛ", "СОЮЗ", "ВВОДН", "ЧАСТ"};
 
-//    public LemmaAnalyzer() throws IOException {
-//
-//    }
-
-
-//    public static LemmaAnalyzer getInstance() throws IOException {
-//        LuceneMorphology morphology = new RussianLuceneMorphology();
-//        return new LemmaAnalyzer(morphology);
-//    }
 
     public LemmaAnalyzer() throws IOException {
         luceneMorphology = new RussianLuceneMorphology();

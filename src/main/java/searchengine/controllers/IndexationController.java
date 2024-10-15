@@ -3,16 +3,16 @@ package searchengine.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import searchengine.services.IndexationServiceImpl;
+import searchengine.services.IndexationService;
 
 @RestController
 @RequestMapping("/api")
 public class IndexationController {
 
 
-    private final IndexationServiceImpl indexationService;
+    private final IndexationService indexationService;
 
-    public IndexationController(IndexationServiceImpl indexationService) {
+    public IndexationController(IndexationService indexationService) {
         this.indexationService = indexationService;
     }
 
