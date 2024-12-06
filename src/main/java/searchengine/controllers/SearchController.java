@@ -17,11 +17,15 @@ public class SearchController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity search(@RequestParam(name="query", required=false, defaultValue="") String query,
-                                 @RequestParam(name="site", required=false, defaultValue="") String site,
-                                 @RequestParam(name="offset", required=false, defaultValue="0") int offset,
-                                 @RequestParam(name="limit", required=false, defaultValue="0") int limit) {
-        return null;
+    public ResponseEntity search(@RequestParam(name="query", defaultValue="") String query,
+                                 @RequestParam(name="site",  defaultValue="") String site,
+                                 @RequestParam(name="offset", defaultValue="0") int offset,
+                                 @RequestParam(name="limit", defaultValue="0") int limit) {
+        System.out.println(query);
+        System.out.println(site);
+        System.out.println(offset);
+        System.out.println(limit);
+        return searchService.search(query, site, offset, limit);
     }
 
 }
