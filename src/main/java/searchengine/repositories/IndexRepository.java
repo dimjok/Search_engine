@@ -14,7 +14,9 @@ public interface IndexRepository extends JpaRepository<IndexModel, Integer> {
 
     List<IndexModel> findByPageId(Integer pageId);
 
-    List<IndexModel> findByLemmaId(Integer indexId);
+    List<IndexModel> findByLemmaId(Integer lemmaId);
+
+    Optional<IndexModel> findByPageIdAndLemmaId(Integer pageId, Integer lemmaId);
 
     @Override
     void delete(IndexModel entity);

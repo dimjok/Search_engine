@@ -21,10 +21,6 @@ public class SearchController {
                                  @RequestParam(name="site",  defaultValue="") String site,
                                  @RequestParam(name="offset", defaultValue="0") int offset,
                                  @RequestParam(name="limit", defaultValue="0") int limit) {
-        System.out.println(query);
-        System.out.println(site);
-        System.out.println(offset);
-        System.out.println(limit);
         return searchService.search(query, site, offset, limit);
     }
 
